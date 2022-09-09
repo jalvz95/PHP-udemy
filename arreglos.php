@@ -28,14 +28,4 @@ echo $semana[6] . '<br/>'; # Domingo*/
 #Podemos usar la función count() para saber cuantos elementos tiene el arreglo
 #Y usar un ciclo for para recorrer el arreglo
 
-$meses = array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
- 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre')
-;
-
-echo count ($meses); # 12
-
-
-
-
-
 ?>
