@@ -2,21 +2,7 @@
 
 #Condicionales
 #Condicional if
-/* Operadores de comparacion:
-== igual
-=== identico
-!= diferente
-<> diferente
-!== no identico
-< menor que
-> mayor que
-<= menor o igual que
->= mayor o igual que
-! Negacion
-&& And
-|| Or
-
- */
+#Condicional else
 
 /*if (condición) {
     # código a ejecutar si la condición es verdadera
