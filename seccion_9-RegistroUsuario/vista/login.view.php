@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <i class="icono izquierda fa fa-lock"></i><input type="password" name="password2" class="password_btn" placeholder="Contraseña">
+                <i class="icono izquierda fa fa-lock"></i><input type="password" name="password" class="password_btn" placeholder="Contraseña">
                 <i class="submit-btn fa fa-arrow-right" onclick="login.submit()"></i>
             </div>
 
