@@ -5,7 +5,7 @@
 // Por ejemplo en la clase Persona, si quisieramos agregarle una propiedad llamada carrera tendriamos que crear otra clase ya que no todas las personas tienen una carrera
 // Pero si creamos una clase estudiante que herede de la clase persona, podriamos agregarle la propiedad carrera a la clase estudiante y no a la clase persona. 
 // La clase estudiante hereda las propiedades y metodos de la clase persona y ademas puede tener sus propias propiedades y metodos.
-Class Persona {
+class Persona {
     public $nombre;
     public $edad;
     public $ciudad;
@@ -23,7 +23,7 @@ Class Persona {
 }
 
 //Ahora crearemos una clase que herede las propiedades y metodos de la clase persona
-Class Estudiante extends Persona{
+class Estudiante extends Persona{
     function __construct($nombre, $edad, $ciudad, $carrera) {
         parent::__construct($nombre, $edad, $ciudad); // parent es una referencia a la clase padre
 // parent::__construct llama al metodo constructor de la clase padre y le pasa los parametros que recibe el metodo constructor de la clase estudiante
