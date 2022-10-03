@@ -1,39 +1,42 @@
-var btn= document.getElementById('btn_cargar_usuarios');
-var loader= document.getElementById('loader');
+var btn_cargar= document.getElementById('btn_cargar_usuarios'),
+    error_box= document.getElementById('error_box'),
+    tabla= document.getElementById('tabla'),
+    loader= document.getElementById('loader');
 
-btn.addEventListener('click',function(){
-    var ruta = 'php/usuarios.php';
-    var peticion= new XMLHttpRequest(); // new XMLHttpRequest() es un objeto que nos permite hacer peticiones a un servidor
-    //peticion.open('GET', 'https://api.npoint.io/9e413337f2cfbc6bb531');
-    peticion.open('GET', ruta);
-    
+var usuario_nombre,
+    usuario_edad,
+    usuario_pais,
+    usuario_correo;
+
+function cargarUsuarios(){
+    tabla.innerHTML='<tr><th>ID</th><th>Nombre</th><th>Edad</th><th>Pais</th><th>Email</th></tr>';
+
+    var peticion= new XMLHttpRequest();
+
+    peticion.open('GET','php/leer-datos.php');
+
     loader.classList.add('active');
 
-    peticion.onload= function(){ // onload es un evento que se ejecuta cuando la peticion se ha completado
-        var datos = JSON.parse(peticion.responseText);
+    peticion.onload= function(){
+        var datos= JSON.parse(peticion.responseText); // JSON.parse() convierte un texto en formato JSON a un objeto de JavaScript
 
-        for(var i = 0; i < 5; i++){
-            var elemento = document.createElement('tr');
-          
-            elemento.innerHTML += "<td>"+datos[i].id +"</td>";
-            elemento.innerHTML += "<td>"+datos[i].nombre +"</td>";
-            elemento.innerHTML += "<td>"+datos[i].edad +"</td>";
-            elemento.innerHTML += "<td>"+datos[i].pais +"</td>";
-            elemento.innerHTML += "<td>"+datos[i].correo +"</td>";
-            document.getElementById('tabla').appendChild(elemento);
+        if(datos.error){
+            error_box.classList.add('active');
+        }else{
+
+            for(var i = 0; i < datos.length; i++){
+                var elemento = document.createElement('tr');
+              
+                elemento.innerHTML += "<td>"+datos[i].id +"</td>";
+                elemento.innerHTML += "<td>"+datos[i].nombre +"</td>";
+                elemento.innerHTML += "<td>"+datos[i].edad +"</td>";
+                elemento.innerHTML += "<td>"+datos[i].pais +"</td>";
+                elemento.innerHTML += "<td>"+datos[i].email +"</td>";
+                tabla.appendChild(elemento);
+            }
+
         }
-
-        // datos.forEach(persona => {
-        // var elemento = document.createElement('tr');
-        // elemento.innerHTML += "<td>"+persona.id +"</td>";
-        // elemento.innerHTML += "<td>"+persona.nombre +"</td>";
-        // elemento.innerHTML += "<td>"+persona.edad +"</td>";
-        // elemento.innerHTML += "<td>"+persona.pais +"</td>";
-        // elemento.innerHTML += "<td>"+persona.correo +"</td>";
-        // document.getElementById('tabla').appendChild(elemento);
-        // });
-
-    }
+    };
 
     peticion.onreadystatechange = function(){
         if(peticion.readyState == 4 && peticion.status == 200){
@@ -42,4 +45,8 @@ btn.addEventListener('click',function(){
     }
 
     peticion.send();
-});
+}
+
+btn_cargar.addEventListener('click',cargarUsuarios);
+
+
