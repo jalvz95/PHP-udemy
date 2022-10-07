@@ -14,48 +14,40 @@ function limpiarDatos($datos){
 $nombre=limpiarDatos($_POST['nombre']);
 $edad=limpiarDatos($_POST['edad']);
 $pais=limpiarDatos($_POST['pais']);
-$correo=limpiarDatos($_POST['correo']);
+$email=limpiarDatos($_POST['email']);
 
-
-
-function validarDatos($nombre, $edad, $pais, $correo){
-    if(empty($nombre) || empty($edad) || empty($pais) || empty($correo) || !is_numeric($edad)){
+function validarDatos($nombre, $edad, $pais, $email){
+    if(empty($nombre) || empty($edad) || !is_numeric($edad) || empty($pais) || empty($email)){
         return false;
     } else {
         return true;
     }
 }
+ var_dump(validarDatos($nombre, $edad, $pais, $email));
+if(validarDatos($nombre, $edad, $pais, $email)){
 
-if(validarDatos($nombre, $edad, $pais, $correo)){
     $conexion= new mysqli("localhost","root","","curso_php_json");
+    $conexion->set_charset("utf8");
 
     if($conexion->connect_errno){
         $respuesta=array(
             'error'=>true
         );
     } else {
-        $conexion ->set_charset("utf8");
         $statement = $conexion->prepare("INSERT INTO usuarios (nombre, edad, pais, email) VALUES (?,?,?,?)");
-        $statement->bind_param("siss", $nombre, $edad, $pais, $correo);
+        $statement->bind_param("siss", $nombre, $edad, $pais, $email);
         $statement->execute();
 
         if($coonexion->affected_rows<= 0){
             $respuesta=array(
-                'error'=>false,
-                'respuesta'=>'Usuario insertado correctamente'
-            );
-
-            $respuesta=[];
-        } 
-        
-        
-        else {
-            $respuesta=array(
                 'error'=>true,
-                'respuesta'=>'No se ha podido insertar el usuario'
+                'respuesta'=>'No se pudo añadir el Usuario'
             );
-        }
-  } 
+        } 
+        $respuesta=[];
+    } 
+} else{
+    $respuesta= ['error'=> true];
 }
 
 echo json_encode($respuesta);
